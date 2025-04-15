@@ -1,0 +1,11 @@
+  main: fr.glerious.uhcmanagerapi.Main
+  name: UHCManagerAPI
+  version: 1.0
+  author: Glerious
+  commands:
+    revive:
+      description: Revive un joueur
+    uhc:
+      description: uhc relatif
+    info:
+      description: uhc playerInfo

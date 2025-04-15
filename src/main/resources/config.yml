@@ -1,0 +1,49 @@
+name: UHCManagerAPI
+creator: Glerious
+
+expected:
+  team_not_found: "L'équipe n'existe pas."
+  to_many_player: "Trop de joueur dans lobby : 124 maximum."
+  grade_require: "Grade requis."
+  arg_require: "Nombre d'arguments invalide."
+  type_require: "Type d'arguments invalide."
+  game_require: "Lancer/Arrêter la partie"
+  role_require: "Joueur sans rôle."
+  team_require: "Joueur sans équipe."
+  player_require: "Joueur introuvable / déconnecté."
+  role_not_exist: "Rôle inexistant."
+  no_access_inventory: "&7Vous n'avez pas accès à cet inventaire."
+  game_state_require: "Vous n'êtes pas au bon moment de la partie. Revenez plus tard."
+
+constructor:
+  revive: "revive {player}"
+  perm: "perm {player} admin|mod|host|player"
+
+command_feedback:
+  help:
+    "&7&m------------------------------------------\n&r
+     &8&lMenu :\n
+     &7 ▹ help - Renvoie le menu d'aide.\n
+     &7 ▹ help {cmd} - Renvoie le constructeur de la cmd. (&bMod&7)\n
+     &7 ▹ perm - Renvoie le niveau de permission. (&bMod&7)\n
+     &7 ▹ perm {cmd} - Accède au commandes de permissions. (&bMod&7)\n
+     &7 ▹ team - Accède au menu du choix des teams.\n
+     &7&m------------------------------------------\n"
+
+information:
+  end_teleportation: "&cFin de la teleportation."
+  kick_for_restarting: "&cRestart du Serveur&7 - Reconnectez-vous dans un instant."
+  host_menu_name: "&l&e - Menu de Moderation"
+  sidebar_separator: "&7&m---------------"
+  pvp_enable: "&cActivation du PVP !"
+  
+prefix:
+  host: "&a&lHost"
+  player: "&7"
+
+limitation:
+  mining:
+    diamond_limit: "17"
+    number_replacement: "1"
+    cut_clean_replacement: "1"
+    diamond_limit_message: "&cVous avez atteint la limite de diamants."
