@@ -25,8 +25,8 @@ public class MenuTeam extends Menu implements Listener {
         List<BetterItems> betterItems = new ArrayList<>();
         for (Team team : Main.getTeamManager().getTeams())
             betterItems.add(new BetterItems(Material.WATER_LILY, team.getPrefix() + team.getName(), true));
-        Page page = new Page(name, 9, slots, betterItems);
-        pages.put("0", page);
+        Page page = new Page(name, 1, slots, betterItems);
+        addPage("0", page, true);
     }
 
     @EventHandler

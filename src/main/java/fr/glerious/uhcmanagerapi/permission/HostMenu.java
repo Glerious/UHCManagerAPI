@@ -26,8 +26,8 @@ public class HostMenu extends Menu implements Listener {
                 new BetterItems(Material.SKULL_ITEM, "§1PlayerHead"),
                 new BetterItems(Material.SLIME_BALL, "§a§lStart")
         );
-        Page page = new Page(name, 27, slots, betterItems);
-        pages.put("0", page);
+        Page page = new Page(name, 3, slots, betterItems);
+        addPage("0", page, true);
     }
 
     @EventHandler

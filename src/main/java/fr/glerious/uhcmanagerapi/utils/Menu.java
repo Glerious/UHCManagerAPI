@@ -27,10 +27,20 @@ public class Menu {
 
     public void openInventory(Player player) {
         actualPage.plot();
+        player.openInventory(actualPage.getInventory());
         player.updateInventory();
+    }
+
+    protected void addPage(String id, Page page, boolean isMain) {
+        pages.put(id, page);
+        if (isMain) actualPage = page;
     }
 
     protected void changePage(String id) {
         actualPage = pages.get(id);
+    }
+
+    public Page getActualPage() {
+        return actualPage;
     }
 }
