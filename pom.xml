@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.glerious.uhcmanagerapi</groupId>
-    <artifactId>UHCManager</artifactId>
+    <artifactId>UHCManagerAPI</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
