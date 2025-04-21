@@ -10,13 +10,13 @@ import java.util.List;
 
 public class Page {
 
-    public Page(String name, int size, List<Integer> slots, List<BetterItems> items) {
+    public Page(String name, int lineNumber, List<Integer> slots, List<BetterItems> items) {
         this.betterItems = Methods.MergeList(slots, items);
-        this.size = size;
-        this.inventory = Bukkit.createInventory(null, size, name);
+        this.lineNumber = lineNumber;
+        this.inventory = Bukkit.createInventory(null, lineNumber * 9, name);
     }
 
-    private final int size;
+    private final int lineNumber;
 
     private final Inventory inventory;
 
@@ -26,8 +26,8 @@ public class Page {
         return inventory;
     }
 
-    public int getSize() {
-        return size;
+    public int getLineNumber() {
+        return lineNumber;
     }
 
     public void plot() {
