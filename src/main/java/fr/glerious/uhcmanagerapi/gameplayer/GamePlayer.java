@@ -38,8 +38,7 @@ public class GamePlayer {
 
     private EnchantmentLimitation enchantmentLimitation = new EnchantmentLimitation();
 
-    public GamePlayer(UUID uuid)
-    {
+    public GamePlayer(UUID uuid) {
         this.uuid = uuid;
         this.sideBar = new SideBar(this);
         this.sideBar.showScoreboard();
@@ -215,9 +214,9 @@ public class GamePlayer {
                 Methods.stylized(
                 "&8&lPseudo : &7" + getPseudo() + "\n"
                 + "&8&lGrade : &7" + grade.name() + "\n"
-                + "&8&lTeam : &7" + ((gameTeam != null) ? gameTeam.getPrefix() : "Aucune")
-                + "&8&lKill : " + kill +  "\n"
-                + "&8&lDeath : " + isDead +  "\n"
+                + "&8&lTeam : &7" + ((gameTeam != null) ? gameTeam.getPrefix() : "Aucune") + "\n"
+                + "&8&lKill : &7" + kill +  "\n"
+                + "&8&lDeath : &7" + isDead +  "\n"
                 )
         );
     }
