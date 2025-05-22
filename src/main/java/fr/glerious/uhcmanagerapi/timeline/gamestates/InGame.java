@@ -68,8 +68,7 @@ public class InGame extends GameState implements Listener {
         if (PVPEnable) {
             gamePlayer.revive();
             return true;
-        }
-        return false;
+        } return false;
     }
 
 }

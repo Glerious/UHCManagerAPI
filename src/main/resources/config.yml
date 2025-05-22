@@ -3,11 +3,11 @@ creator: Glerious
 
 expected:
   team_not_found: "L'équipe n'existe pas."
-  to_many_player: "Trop de joueur dans lobby : 124 maximum."
-  grade_require: "Grade requis."
+  to_many_player: "Trop de joueur pour la partie."
+  grade_require: "Grade superieur requis."
   arg_require: "Nombre d'arguments invalide."
   type_require: "Type d'arguments invalide."
-  game_require: "Lancer/Arrêter la partie"
+  game_require: "Aucune partie reconnue."
   role_require: "Joueur sans rôle."
   team_require: "Joueur sans équipe."
   player_require: "Joueur introuvable / déconnecté."

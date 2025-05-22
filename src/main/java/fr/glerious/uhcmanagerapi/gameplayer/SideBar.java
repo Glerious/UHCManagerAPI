@@ -56,14 +56,12 @@ public class SideBar {
         gamePlayer.getPlayer().setScoreboard(scoreboard);
     }
 
-    public void changeNames(String name, String author)
-    {
+    public void changeNames(String name, String author) {
         objective.setDisplayName(name);
         setScore(author, 0);
     }
 
-    private void setScore(String content, int score)
-    {
+    private void setScore(String content, int score) {
         Score line = objective.getScore(content);
         line.setScore(score);
         lines.put(score, content);
@@ -74,8 +72,7 @@ public class SideBar {
         setScore(content, lineIndex + indent);
     }
 
-    private void updateLine(String content, int score)
-    {
+    private void updateLine(String content, int score) {
         String reset = lines.get(score);
         if (reset != null) getScoreboard().resetScores(reset);
         setScore(content, score);
@@ -86,16 +83,14 @@ public class SideBar {
         updateLine(newLine, lineIndex + indent);
     }
 
-    public void updateTeam()
-    {
+    public void updateTeam() {
         int score = 2;
         String text = "§7» §6Team: §7";
         String updated = (gamePlayer.getTeam() != null) ? gamePlayer.getTeam().getName() : "Aucun";
         updateLine(text + updated, score);
     }
 
-    public void updatePlayerCounter()
-    {
+    public void updatePlayerCounter() {
         int numberPlayer = Main.getGamePlayers().size();
         for (GamePlayer gamePlayer : Main.getGamePlayers()) {
             if (gamePlayer.isDead()) numberPlayer--;
@@ -106,16 +101,14 @@ public class SideBar {
         updateLine(text + updated, score);
     }
 
-    public void updateTimer()
-    {
+    public void updateTimer() {
         int score = 13;
         String text = "§7» §6Timer: §7";
         String updated = Main.getGameState().getTimer().asClock();
         updateLine(text + updated, score);
     }
 
-    public void updateEtat()
-    {
+    public void updateEtat() {
         int score = 14;
         String text = "§7» §6Etat: §7";
         String updated = Main.getGameState().getName();

@@ -12,7 +12,6 @@ import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Waiting extends GameState implements Listener {
+public class Waiting extends GameState {
 
     public Waiting() {
         super("En Attente");

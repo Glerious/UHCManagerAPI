@@ -9,13 +9,11 @@ public class Timer {
         return time;
     }
 
-    public void setTime(Integer time)
-    {
+    public void setTime(Integer time) {
         Timer.time = time;
     }
 
-    public void increment()
-    {
+    public void increment() {
         time++;
     }
 

@@ -15,7 +15,6 @@ public class JoinAndQuitListener implements Listener{
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         event.setJoinMessage("§a[+] " + event.getPlayer().getName());
-
         UUID uuid = event.getPlayer().getUniqueId();
         if (Main.hasGamePlayer(uuid)) return;
         Main.addGamePlayer(new GamePlayer(uuid));

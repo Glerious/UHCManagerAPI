@@ -8,12 +8,10 @@ import fr.glerious.uhcmanagerapi.team.TeamManager;
 import fr.glerious.uhcmanagerapi.timeline.Events;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
-import fr.glerious.uhcmanagerapi.timeline.gamestates.Teleporting;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
 import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,9 +30,9 @@ public class Main extends JavaPlugin {
 
     private static GameState gameState;
 
-    private static List<Events> events;
+    private static final List<Events> events = new ArrayList<>();
 
-    private static List<Runnables> runnables;
+    private static final List<Runnables> runnables = new ArrayList<>();
 
     private static final List<GamePlayer> gamePlayers = new ArrayList<>();
 
@@ -57,7 +55,6 @@ public class Main extends JavaPlugin {
     }
 
     public static void setGameState(GameState gameState) {
-        HandlerList.unregisterAll(Main.gameState);
         Main.gameState = gameState;
         Main.getMain().addListener(gameState);
         Main.getGamePlayers().forEach(gamePlayer -> {
@@ -94,14 +91,11 @@ public class Main extends JavaPlugin {
             commands = new Commands();
             teamManager = new TeamManager();
             gameState = new Waiting();
-            events = new ArrayList<>();
-            runnables = new ArrayList<>();
 
             addListener(new JoinAndQuitListener());
             addListener(new MenuTeam());
             addListener(new UHC());
             addListener(new HostMenu());
-            addListener(new Teleporting());
             addListener(gameState);
         });
     }
