@@ -21,7 +21,6 @@ public class JoinAndQuitListener implements Listener{
         GamePlayer gamePlayer = Main.getGamePlayer(uuid);
         assert gamePlayer != null;
         if (gamePlayer.getPlayer().isOp()) gamePlayer.setGrade(Grade.HOST);
-        Main.getTeamManager().joinTeam(gamePlayer, "player");
 
     }
 
