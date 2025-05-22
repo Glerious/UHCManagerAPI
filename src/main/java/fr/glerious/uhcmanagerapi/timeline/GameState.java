@@ -1,6 +1,7 @@
 package fr.glerious.uhcmanagerapi.timeline;
 
 import fr.glerious.uhcmanagerapi.Main;
+import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,13 +15,23 @@ public abstract class GameState implements Listener {
         this.name = name;
     }
 
-    private final String name;
+    protected final String name;
 
-    private final Timer timer = new Timer();
+    protected final Timer timer = new Timer();
 
-    public static List<Events> events = new ArrayList<>();
+    protected List<Events> events = new ArrayList<>();
 
-    public static List<Runnables> runnables = new ArrayList<>();
+    protected List<Runnables> runnables = new ArrayList<>();
+
+    protected BukkitRunnable eventRunnable = new BukkitRunnable() {
+        @Override
+        public void run() {
+            for (Events events: getEvents())
+                if (events.getTime() == timer.getTime()) events.action();
+            timer.increment();
+            Main.getGamePlayers().forEach(gamePlayer -> gamePlayer.getSideBar().updateTimer());
+        }
+    };
 
     public String getName() {
         return name;
@@ -41,24 +52,19 @@ public abstract class GameState implements Listener {
         return runnables;
     }
 
+    public BukkitRunnable getEventRunnable() {
+        return eventRunnable;
+    }
+
     public void next() {
-        GameState actual = Main.getGameState();
-        HandlerList.unregisterAll(actual);
+        HandlerList.unregisterAll(this);
+        if (!(this instanceof Waiting)) eventRunnable.cancel();
     }
 
     public void clock() {
         for (Runnables runnable :
-                getRunnables()) {
+                getRunnables())
             runnable.get().runTaskTimer(Main.getMain(), runnable.getDelay(), runnable.getPeriod());
-        }
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Events events: getEvents()) {
-                    if (events.getTime() == timer.getTime()) events.action();
-                }
-                timer.increment();
-            }
-        };
+        eventRunnable.runTaskTimer(Main.getMain(), 0, 20);
     }
 }
