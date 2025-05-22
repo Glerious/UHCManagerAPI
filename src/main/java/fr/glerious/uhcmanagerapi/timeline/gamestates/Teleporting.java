@@ -2,7 +2,9 @@ package fr.glerious.uhcmanagerapi.timeline.gamestates;
 
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
+import fr.glerious.uhcmanagerapi.timeline.Events;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
+import fr.glerious.uhcmanagerapi.timeline.Runnables;
 import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,32 +19,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Teleporting extends GameState implements Listener {
-
+public class Teleporting extends GameState {
 
     final List<GamePlayer> gamePlayers = new ArrayList<>(Main.getGamePlayers());
 
-    public Teleporting()
-    {
+    public Teleporting() {
         super("Téléportation");
-    }
+        Bukkit.broadcastMessage("je suis print");
+        runnables.add(new Runnables(0, 5) {
+            @Override
+            public boolean condition() {
+                return gamePlayers.isEmpty();
+            }
 
-    @Override
-    public void clock() {
-        new BukkitRunnable()
-        {
-            public void run() {
-                if (gamePlayers.isEmpty())
-                {
-                    Bukkit.broadcastMessage(ConfigAPI.getToConfig("information.teleport.end"));
-                    Main.setGameState(new InGame());
-                    cancel();
-                }
+            @Override
+            public void exit() {
+                Bukkit.broadcastMessage(ConfigAPI.getToConfig("information.end_teleportation"));
+                Main.setGameState(new InGame());
+            }
+
+            @Override
+            public void action() {
                 GamePlayer gamePlayer = gamePlayers.get(new Random().nextInt(gamePlayers.size()));
                 teleportPlayer(gamePlayer);
                 gamePlayers.remove(gamePlayer);
             }
-        };
+        });
+        clock();
     }
 
     @Override
