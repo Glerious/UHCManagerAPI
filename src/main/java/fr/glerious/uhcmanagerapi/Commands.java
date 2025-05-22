@@ -104,7 +104,7 @@ public class Commands implements CommandExecutor {
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("list")) {
-                            Team team = gamePlayer.getGameTeam();
+                            Team team = gamePlayer.getTeam();
                             if (team == null) {
                                 player.sendMessage(ConfigAPI.getExpected("team_require"));
                                 return true;
@@ -119,7 +119,7 @@ public class Commands implements CommandExecutor {
                         if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, Waiting.class, args.length, argumentRequire)) return true;
                         for (GamePlayer otherGamePlayer :
                                 Main.getGamePlayers()) {
-                            if (otherGamePlayer.getGameTeam() == null) {
+                            if (otherGamePlayer.getTeam() == null) {
                                 player.sendMessage(ConfigAPI.getExpected("team_require"));
                                 return true;
                             }

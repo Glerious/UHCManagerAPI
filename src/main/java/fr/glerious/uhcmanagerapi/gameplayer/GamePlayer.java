@@ -22,15 +22,15 @@ public class GamePlayer {
 
     private final UUID uuid;
 
-    private Grade grade = Grade.PLAYER;
+    private Grade grade = Grade.SPECTATOR;
 
     private final SideBar sideBar;
+
+    private Team team;
 
     private boolean isDead = false;
 
     private int kill;
-
-    private Team gameTeam;
 
     private MiningLimitation miningLimitation = new MiningLimitation();
 
@@ -89,19 +89,12 @@ public class GamePlayer {
         this.kill = kill;
     }
 
-    public Team getGameTeam()
-    {
-        return gameTeam;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setGameTeam(Team gameTeam)
-    {
-        this.gameTeam = gameTeam;
-    }
-
-    public void setTeam(Team team)
-    {
-        this.gameTeam = team;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public MiningLimitation getMiningLimitation() {
@@ -204,7 +197,7 @@ public class GamePlayer {
     }
 
     public void revive() {
-        if (gameTeam != null)
+        if (team != null)
             getPlayer().setGameMode(GameMode.SURVIVAL);
             //TODO réutiliser la méthode de téléportation random (créer cette méthode dans Teleport.java
     }
@@ -214,7 +207,7 @@ public class GamePlayer {
                 Methods.stylized(
                 "&8&lPseudo : &7" + getPseudo() + "\n"
                 + "&8&lGrade : &7" + grade.name() + "\n"
-                + "&8&lTeam : &7" + ((gameTeam != null) ? gameTeam.getPrefix() : "Aucune") + "\n"
+                + "&8&lTeam : &7" + ((team != null) ? team.getPrefix() + team.getName() : "Aucune") + "\n"
                 + "&8&lKill : &7" + kill +  "\n"
                 + "&8&lDeath : &7" + isDead +  "\n"
                 )

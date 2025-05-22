@@ -90,7 +90,7 @@ public class SideBar {
     {
         int score = 2;
         String text = "§7» §6Team: §7";
-        String updated = (gamePlayer.getGameTeam() != null) ? gamePlayer.getGameTeam().getName() : "Aucun";
+        String updated = (gamePlayer.getTeam() != null) ? gamePlayer.getTeam().getName() : "Aucun";
         updateLine(text + updated, score);
     }
 
