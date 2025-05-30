@@ -45,8 +45,7 @@ public class Main extends JavaPlugin {
         return main;
     }
 
-    public static TeamManager getTeamManager()
-    {
+    public static TeamManager getTeamManager() {
         return teamManager;
     }
 
@@ -121,8 +120,7 @@ public class Main extends JavaPlugin {
         manager.registerEvents(listener, this);
     }
 
-    private void addCommand(String command)
-    {
+    private void addCommand(String command) {
         getCommand(command).setExecutor(commands);
     }
 
