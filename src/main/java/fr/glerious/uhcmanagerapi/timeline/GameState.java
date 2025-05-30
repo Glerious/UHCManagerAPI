@@ -2,6 +2,7 @@ package fr.glerious.uhcmanagerapi.timeline;
 
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -27,7 +28,7 @@ public abstract class GameState implements Listener {
         @Override
         public void run() {
             for (Events events: getEvents())
-                if (events.getTime() == timer.getTime()) events.action();
+                if (Methods.seconds2ticks(timer.getTime()).equals(events.getTime())) events.action();
             timer.increment();
             Main.getGamePlayers().forEach(gamePlayer -> gamePlayer.getSideBar().updateTimer());
         }

@@ -4,13 +4,14 @@ import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.event.Listener;
 
 public class Restarting extends GameState implements Listener {
 
     public Restarting() {
         super("Redémmarage");
-        runnables.add(new Runnables(0, 60) {
+        runnables.add(new Runnables(Methods.seconds2ticks(10), Methods.seconds2ticks(1)) {
             private final int duration = 5;
 
             private Integer i = 0;

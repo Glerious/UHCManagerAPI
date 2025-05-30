@@ -5,6 +5,7 @@ import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.timeline.Events;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +22,7 @@ public class InGame extends GameState implements Listener {
         super("En Jeu");
         events = Main.getEvents();
         runnables = Main.getRunnables();
-        runnables.add(new Runnables(0, 30) {
+        runnables.add(new Runnables(0, Methods.seconds2ticks(1.5)) {
             @Override
             public boolean condition() {
                 return Main.getTeamManager().getTeams().size() == 1;

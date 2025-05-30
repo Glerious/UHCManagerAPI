@@ -8,9 +8,9 @@ public abstract class Runnables implements ConditionalAction {
 
     private final long period;
 
-    public Runnables(long delay, long period) {
-        this.delay = delay;
-        this.period = period;
+    public Runnables(long delayTick, long periodTick) {
+        this.delay = delayTick;
+        this.period = periodTick;
     }
 
     public long getPeriod()

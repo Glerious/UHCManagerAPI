@@ -3,12 +3,13 @@ package fr.glerious.uhcmanagerapi.timeline.gamestates;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 
 public class Starting extends GameState {
 
     public Starting(boolean onTest) {
         super("Démmarage");
-        runnables.add(new Runnables(0, onTest ? 0 : 20) {
+        runnables.add(new Runnables(0, onTest ? 0 : Methods.seconds2ticks(1)) {
             private final Integer duration = 10;
 
             @Override

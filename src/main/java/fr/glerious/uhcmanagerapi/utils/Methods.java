@@ -31,4 +31,14 @@ public class Methods {
     public static List<Integer> rangedList(int start, int end) {
         return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
     }
+
+    public static Integer seconds2ticks(float seconds) {
+        float returned = 20 * seconds;
+        return Math.round(returned);
+    }
+
+    public static Integer seconds2ticks(double seconds) {
+        double returned = 20 * seconds;
+        return Math.toIntExact(Math.round(returned));
+    }
 }
