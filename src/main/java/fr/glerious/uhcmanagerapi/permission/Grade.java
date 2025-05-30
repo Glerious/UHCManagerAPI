@@ -5,5 +5,4 @@ public enum Grade {
 
     HOST,
     PLAYER,
-    SPECTATOR,
 }

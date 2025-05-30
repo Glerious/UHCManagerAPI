@@ -4,8 +4,8 @@ public abstract class Events implements ConditionalAction {
 
     private final int elapsed;
 
-    public Events(int elapsed) {
-        this.elapsed = elapsed;
+    public Events(int elapsedTick) {
+        this.elapsed = elapsedTick;
     }
 
     public int getTime() {

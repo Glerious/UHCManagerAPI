@@ -102,8 +102,8 @@ public class Commands implements CommandExecutor {
                         }
                     }
                     case "team": {
-                        if (ConfigAPI.commandChecker(gamePlayer, Waiting.class)) return true;
                         if (args.length == 1) {
+                            if (ConfigAPI.commandChecker(gamePlayer, Waiting.class)) return true;
                             new MenuTeam().openInventory(player);
                             return true;
                         }

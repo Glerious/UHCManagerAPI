@@ -37,7 +37,7 @@ information:
   sidebar_separator: "&7&m---------------"
   pvp_enable: "&cActivation du PVP !"
   
-prefix:
+grade_prefix:
   host: "&a&lHost"
   player: "&7"
 
@@ -47,3 +47,8 @@ limitation:
     number_replacement: "1"
     cut_clean_replacement: "1"
     diamond_limit_message: "&cVous avez atteint la limite de diamants."
+
+team:
+  spectator_name: "Spectators"
+  spectator_prefix: "&o"
+  maximum_team_slot: "1"

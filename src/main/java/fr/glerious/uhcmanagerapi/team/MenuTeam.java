@@ -3,7 +3,6 @@ package fr.glerious.uhcmanagerapi.team;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.permission.Grade;
 import fr.glerious.uhcmanagerapi.utils.Menu;
 import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.utils.menu.Page;
@@ -37,15 +36,12 @@ public class MenuTeam extends Menu implements Listener {
         GamePlayer gamePlayer = Main.getGamePlayer(player.getUniqueId());
         assert gamePlayer != null;
         ItemStack item = event.getCurrentItem();
-        Team team = Main.getTeamManager().getTeamByName(item.getItemMeta().getDisplayName());
-        if (gamePlayer.getTeam() != null) {
-            if (gamePlayer.getTeam().equals(team))
-                gamePlayer.setGrade(Grade.SPECTATOR);
-            Main.getTeamManager().quitTeam(gamePlayer);
-        }
+        if (item.getType().equals(Material.AIR)) return;
+        Team team = Main.getTeamManager().getTeamByName(item.getItemMeta().getDisplayName(), true);
+        if (gamePlayer.getTeam().equals(team))
+            team = Main.getTeamManager().getSpectatorTeam();
+        Main.getTeamManager().quitTeam(gamePlayer);
         Main.getTeamManager().joinTeam(gamePlayer, team.getName());
-        gamePlayer.setTeam(team);
-        gamePlayer.getSideBar().updateTeam();
         event.setCancelled(true);
         player.closeInventory();
     }
