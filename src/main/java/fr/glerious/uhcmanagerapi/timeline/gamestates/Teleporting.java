@@ -6,7 +6,9 @@ import fr.glerious.uhcmanagerapi.timeline.Events;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
 import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,7 +27,6 @@ public class Teleporting extends GameState {
 
     public Teleporting() {
         super("Téléportation");
-        Bukkit.broadcastMessage("je suis print");
         runnables.add(new Runnables(0, 5) {
             @Override
             public boolean condition() {
@@ -35,14 +36,23 @@ public class Teleporting extends GameState {
             @Override
             public void exit() {
                 Bukkit.broadcastMessage(ConfigAPI.getToConfig("information.end_teleportation"));
-                Main.setGameState(new InGame());
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        next();
+                    }
+                }.runTaskLater(Main.getMain(), Methods.seconds2ticks(5));
             }
 
             @Override
             public void action() {
                 GamePlayer gamePlayer = gamePlayers.get(new Random().nextInt(gamePlayers.size()));
-                teleportPlayer(gamePlayer);
                 gamePlayers.remove(gamePlayer);
+                if (Main.getTeamManager().getActualGamePlayers().contains(gamePlayer)) {
+                    teleportPlayer(gamePlayer);
+                    return;
+                }
+                gamePlayer.getPlayer().setGameMode(GameMode.SPECTATOR);
             }
         });
         clock();
@@ -50,15 +60,14 @@ public class Teleporting extends GameState {
 
     @Override
     public void next() {
+        super.next();
         Main.setGameState(new InGame());
     }
 
     @EventHandler
     public void OnDamage(EntityDamageEvent event) {
         if (!event.getEntityType().equals(EntityType.PLAYER)) return;
-
         Player player = Bukkit.getPlayer(event.getEntity().getUniqueId());
-
         if (!event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) return;
         if (player.isDead()) return;
         event.setCancelled(true);

@@ -1,6 +1,7 @@
 package fr.glerious.uhcmanagerapi.timeline.gamestates;
 
 import fr.glerious.uhcmanagerapi.Main;
+import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnables;
 import org.bukkit.event.Listener;
@@ -26,14 +27,12 @@ public class Restarting extends GameState implements Listener {
 
             @Override
             public void action() {
-                Main.getGamePlayers().forEach(
-                        gamePlayer -> gamePlayer.sendActionBar(
-                                "§7Redémmarage dans§c " + (duration - i) + " §7secondes."
-                        )
-                );
+                for (GamePlayer gamePlayer : Main.getGamePlayers())
+                    gamePlayer.sendActionBar("§7Redémmarage dans§c " + (duration - i) + " §7secondes.");
                 i++;
             }
         });
+        clock();
     }
 
     @Override

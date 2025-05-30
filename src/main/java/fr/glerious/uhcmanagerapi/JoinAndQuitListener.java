@@ -28,7 +28,7 @@ public class JoinAndQuitListener implements Listener{
     public void onQuit(PlayerQuitEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
         GamePlayer gamePlayer = Main.getGamePlayer(uuid);
-        if (Main.getGameState().getClass() == Waiting.class) Main.getGamePlayers().remove(gamePlayer);
+        if (Main.getGameState() instanceof Waiting) Main.getGamePlayers().remove(gamePlayer);
         event.setQuitMessage("§c[-] " + event.getPlayer().getName());
     }
 }

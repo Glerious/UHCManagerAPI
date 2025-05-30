@@ -59,6 +59,8 @@ public abstract class GameState implements Listener {
     public void next() {
         HandlerList.unregisterAll(this);
         if (!(this instanceof Waiting)) eventRunnable.cancel();
+        timer.reset();
+        Main.getGamePlayers().forEach(gamePlayer -> gamePlayer.getSideBar().updateTimer());
     }
 
     public void clock() {

@@ -9,6 +9,7 @@ import fr.glerious.uhcmanagerapi.timeline.gamestates.Restarting;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
 import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +34,10 @@ public class Commands implements CommandExecutor {
                 InGame inGame = (InGame) Main.getGameState();
                 Player otherPlayer = Bukkit.getPlayer(args[0]);
                 if (otherPlayer == null) return false;
-                if (inGame.revive(otherPlayer)) return false;
+                GamePlayer otherGamePlayer = Main.getGamePlayer(otherPlayer.getUniqueId());
+                if (otherGamePlayer == null) return false;
+                otherGamePlayer.revive(new Location(otherPlayer.getWorld(), 0, 100, 0));
+                //TODO: Fix respawn command
                 Bukkit.broadcastMessage("§eRevive§7 de " + otherPlayer.getName());
                 return true;
             }
@@ -117,16 +121,12 @@ public class Commands implements CommandExecutor {
                     case "start": {
                         int argumentRequire = 1;
                         if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, Waiting.class, args.length, argumentRequire)) return true;
-                        for (GamePlayer otherGamePlayer :
-                                Main.getGamePlayers()) {
-                            if (otherGamePlayer.getTeam() == null) {
-                                player.sendMessage(ConfigAPI.getExpected("team_require"));
-                                return true;
-                            }
+                        if (!(Main.getTeamManager().getGameSize().equals(Main.getTeamManager().getActualSize()))) {
+                            player.sendMessage(ConfigAPI.getExpected("team_require"));
+                            return true;
                         }
-                        for (GamePlayer otherGamePlayer : Main.getGamePlayers()) {
+                        for (GamePlayer otherGamePlayer : Main.getGamePlayers())
                             otherGamePlayer.getPlayer().getInventory().clear();
-                        }
                         Main.getGameState().next(); //TODO remove testmode
                         return true;
                     }
