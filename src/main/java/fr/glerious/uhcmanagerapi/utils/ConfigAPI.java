@@ -27,7 +27,7 @@ public class ConfigAPI {
 
     public static String getCommandFeedback(String string)
     {
-        return getToConfig("commands_feedback." + string);
+        return getToConfig("command_feedback." + string);
     }
 
     public static String getInformation(String string)

@@ -38,7 +38,7 @@ public class HostMenu extends Menu implements Listener {
         assert gamePlayer != null;
         if (event.getCursor() == null) return;
         ItemStack item = event.getCurrentItem();
-        if (item == null) return;
+        if (item.getType() == Material.AIR) return;
         event.setCancelled(true);
         switch (item.getItemMeta().getDisplayName()) {
             case "§1PlayerHead": getPlayerInfo(player); break;

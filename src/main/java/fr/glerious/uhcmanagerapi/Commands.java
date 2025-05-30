@@ -66,10 +66,12 @@ public class Commands implements CommandExecutor {
                             return true;
                         }
                         int argumentRequire = 2;
-                        if (!args[1].equalsIgnoreCase("perm")) return false;
                         if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire)) return true;
-                        player.sendMessage(ConfigAPI.getConstructor("help.perm"));
-                        return true;
+                        if (args[1].equalsIgnoreCase("perm")) {
+                            player.sendMessage(ConfigAPI.getConstructor("perm"));
+                            return true;
+                        }
+                        return false;
                     }
                     case "menu": {
                         if (args.length == 1) new HostMenu().openInventory(player);
