@@ -1,5 +1,6 @@
 package fr.glerious.uhcmanagerapi.gameplayer;
 
+import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.limitation.EnchantmentLimitation;
 import fr.glerious.uhcmanagerapi.limitation.MiningLimitation;
 import fr.glerious.uhcmanagerapi.limitation.StuffLimitation;
@@ -9,6 +10,7 @@ import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -22,7 +24,7 @@ public class GamePlayer {
 
     private final UUID uuid;
 
-    private Grade grade = Grade.SPECTATOR;
+    private Grade grade = Grade.PLAYER;
 
     private final SideBar sideBar;
 
@@ -30,7 +32,7 @@ public class GamePlayer {
 
     private boolean isDead = false;
 
-    private int kill;
+    private int kill = 0;
 
     private MiningLimitation miningLimitation = new MiningLimitation();
 
@@ -42,6 +44,7 @@ public class GamePlayer {
         this.uuid = uuid;
         this.sideBar = new SideBar(this);
         this.sideBar.showScoreboard();
+        Main.getTeamManager().joinTeam(this, Main.getTeamManager().getSpectatorsName());
     }
 
     public UUID getUuid()
@@ -196,10 +199,17 @@ public class GamePlayer {
         dropItem(new ItemStack(material));
     }
 
-    public void revive() {
-        if (team != null)
-            getPlayer().setGameMode(GameMode.SURVIVAL);
-            //TODO réutiliser la méthode de téléportation random (créer cette méthode dans Teleport.java
+    public void revive(Location location) {
+        getPlayer().spigot().respawn();
+        //getPlayer().teleport(location);
+        getPlayer().setGameMode(GameMode.SURVIVAL);
+        Bukkit.broadcastMessage("§7Revive du joueur :§6§l" + getPlayer().getName());
+        //TODO réutiliser la méthode de téléportation random (créer cette méthode dans Teleport.java
+    }
+
+    public void spectate() {
+        Main.getTeamManager().joinTeam(this, Main.getTeamManager().getSpectatorsName());
+        getPlayer().setGameMode(GameMode.SPECTATOR);
     }
 
     public void information() {
