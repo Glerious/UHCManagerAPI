@@ -1,7 +1,7 @@
 package fr.glerious.uhcmanagerapi.gameplayer;
 
+import fr.glerious.uhcmanagerapi.ConfigUHC;
 import fr.glerious.uhcmanagerapi.Main;
-import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -56,9 +56,8 @@ public class SideBar {
         gamePlayer.getPlayer().setScoreboard(scoreboard);
     }
 
-    public void changeNames(String name, String author) {
+    public void changeNames(String name) {
         objective.setDisplayName(name);
-        setScore(author, 0);
     }
 
     private void setScore(String content, int score) {

@@ -1,8 +1,10 @@
 package fr.glerious.uhcmanagerapi;
 
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.permission.Grade;
+import fr.glerious.javautils.Grade;
+import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +26,6 @@ public class JoinAndQuitListener implements Listener{
         GamePlayer gamePlayer = Main.getGamePlayer(uuid);
         assert gamePlayer != null;
         if (gamePlayer.getPlayer().isOp()) gamePlayer.setGrade(Grade.HOST);
-
     }
 
     @EventHandler

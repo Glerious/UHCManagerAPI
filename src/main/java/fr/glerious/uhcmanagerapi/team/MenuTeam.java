@@ -1,11 +1,10 @@
 package fr.glerious.uhcmanagerapi.team;
 
+import fr.glerious.javautils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
-import fr.glerious.uhcmanagerapi.gameplayer.BetterItems;
+import fr.glerious.javautils.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.utils.Menu;
-import fr.glerious.uhcmanagerapi.utils.Methods;
-import fr.glerious.uhcmanagerapi.utils.menu.Page;
+import fr.glerious.javautils.Menu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,8 +24,7 @@ public class MenuTeam extends Menu implements Listener {
         List<BetterItems> betterItems = new ArrayList<>();
         for (Team team : Main.getTeamManager().getTeams())
             betterItems.add(new BetterItems(Material.WATER_LILY, team.getPrefix() + team.getName(), true));
-        Page page = new Page(name, 1, slots, betterItems);
-        addPage("0", page, true);
+        modifyBasePage(1, Methods.list2Hash(slots, betterItems));
     }
 
     @EventHandler

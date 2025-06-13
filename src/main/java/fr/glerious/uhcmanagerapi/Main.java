@@ -2,23 +2,21 @@ package fr.glerious.uhcmanagerapi;
 
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.limitation.UHC;
+import fr.glerious.javautils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.team.TeamManager;
-import fr.glerious.uhcmanagerapi.timeline.Events;
+import fr.glerious.uhcmanagerapi.timeline.Event;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
-import fr.glerious.uhcmanagerapi.timeline.Runnables;
+import fr.glerious.uhcmanagerapi.timeline.Runnable;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
-import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Main extends JavaPlugin {
 
@@ -30,9 +28,11 @@ public class Main extends JavaPlugin {
 
     private static GameState gameState;
 
-    private static final List<Events> events = new ArrayList<>();
+    private static final List<Event> events = new ArrayList<>();
 
-    private static final List<Runnables> runnables = new ArrayList<>();
+    private static final List<Event> startEvents = new ArrayList<>();
+
+    private static final List<Runnable> runnables = new ArrayList<>();
 
     private static final List<GamePlayer> gamePlayers = new ArrayList<>();
 
@@ -62,12 +62,16 @@ public class Main extends JavaPlugin {
         });
     }
 
-    public static List<Events> getEvents()
+    public static List<Event> getEvents()
     {
         return events;
     }
 
-    public static List<Runnables> getRunnables()
+    public static List<Event> getStartEvents() {
+        return startEvents;
+    }
+
+    public static List<Runnable> getRunnables()
     {
         return runnables;
     }
@@ -85,11 +89,11 @@ public class Main extends JavaPlugin {
         getCommand("revive").setExecutor(new Commands());
         getCommand("uhc").setExecutor(new Commands());
         getCommand("info").setExecutor(new Commands());
+        gameState = new Waiting();
 
         Bukkit.getScheduler().runTask(this, () -> {
             commands = new Commands();
             teamManager = new TeamManager();
-            gameState = new Waiting();
 
             addListener(new JoinAndQuitListener());
             addListener(new MenuTeam());

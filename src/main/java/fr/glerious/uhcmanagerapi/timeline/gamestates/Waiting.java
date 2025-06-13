@@ -36,6 +36,10 @@ public class Waiting extends GameState {
 
     private final List<BetterItems> betterItems = new ArrayList<>();
 
+    public List<BetterItems> getBetterItems() {
+        return betterItems;
+    }
+
     private List<ItemStack> getBetterItemsToItemsStack() {
         return Lists.transform(betterItems, BetterItems::getItemStack);
     }

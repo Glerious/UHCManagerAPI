@@ -43,16 +43,6 @@ public abstract class GameState implements Listener {
         return timer;
     }
 
-    public List<Events> getEvents()
-    {
-        return events;
-    }
-
-    public List<Runnables> getRunnables()
-    {
-        return runnables;
-    }
-
     public BukkitRunnable getEventRunnable() {
         return eventRunnable;
     }
