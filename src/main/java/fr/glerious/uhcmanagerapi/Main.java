@@ -1,6 +1,7 @@
 package fr.glerious.uhcmanagerapi;
 
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
+import fr.glerious.uhcmanagerapi.limitation.StuffLimitation;
 import fr.glerious.uhcmanagerapi.limitation.UHC;
 import fr.glerious.javautils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
@@ -99,6 +100,7 @@ public class Main extends JavaPlugin {
             addListener(new MenuTeam());
             addListener(new UHC());
             addListener(new HostMenu());
+            addListener(new StuffLimitation());
             addListener(gameState);
         });
     }
@@ -130,7 +132,95 @@ public class Main extends JavaPlugin {
 
     public static void kickAllPlayer() {
         for (Player player: Bukkit.getOnlinePlayers()) {
-            player.kickPlayer(ConfigAPI.getInformation("kick_for_restarting"));
+            player.kickPlayer(ConfigUHC.getInformation("kick_for_restarting"));
         }
+    }
+
+    private static String hasNotNumberArgumentRequire(int arguments, int argumentsRequire) {
+        if (arguments < argumentsRequire) return  "arg_require";
+        return "";
+    }
+
+    private static String hasNotGradeRequire(GamePlayer gamePlayer, Grade grade) {
+        if (!gamePlayer.hasGarde(grade)) return "grade_require";
+        return "";
+    }
+
+    private static String hasNotGameStateRequire(Class<? extends GameState> gameStateRequire) {
+        if (gameStateRequire != Main.getGameState().getClass()) return "game_state_require";
+        return "";
+    }
+
+    private static String isNotPlayerOnline(String entry) {
+        if (Bukkit.getPlayer(entry) == null) return "player_require";
+        return "";
+    }
+
+    public static boolean commandChecker(GamePlayer gamePlayer,
+                                         Grade gradeRequire,
+                                         Class<? extends GameState> gameStateRequire,
+                                         int arguments,
+                                         int argumentsRequire,
+                                         String otherPlayer) {
+        return printCommandFeedback(Arrays.asList(
+                hasNotGameStateRequire(gameStateRequire),
+                hasNotNumberArgumentRequire(arguments, argumentsRequire),
+                hasNotGradeRequire(gamePlayer, gradeRequire),
+                isNotPlayerOnline(otherPlayer)
+        ), gamePlayer);
+    }
+
+    public static boolean commandChecker(GamePlayer gamePlayer,
+                                         Grade gradeRequire,
+                                         int arguments,
+                                         int argumentsRequire,
+                                         String otherPlayer) {
+        return printCommandFeedback(Arrays.asList(
+                hasNotNumberArgumentRequire(arguments, argumentsRequire),
+                hasNotGradeRequire(gamePlayer, gradeRequire),
+                isNotPlayerOnline(otherPlayer)
+        ), gamePlayer);
+    }
+
+    public static boolean commandChecker(GamePlayer gamePlayer,
+                                         Grade gradeRequire,
+                                         int arguments,
+                                         int argumentsRequire) {
+        return printCommandFeedback(Arrays.asList(
+                hasNotNumberArgumentRequire(arguments, argumentsRequire),
+                hasNotGradeRequire(gamePlayer, gradeRequire)
+        ), gamePlayer);
+    }
+
+    public static boolean commandChecker(GamePlayer gamePlayer,
+                                         Grade gradeRequire,
+                                         Class<? extends GameState> gameStateRequire,
+                                         int arguments,
+                                         int argumentsRequire) {
+        return printCommandFeedback(Arrays.asList(
+                hasNotGameStateRequire(gameStateRequire),
+                hasNotNumberArgumentRequire(arguments, argumentsRequire),
+                hasNotGradeRequire(gamePlayer, gradeRequire)
+        ), gamePlayer);
+    }
+
+    public static boolean commandChecker(GamePlayer gamePlayer,
+                                         Class<? extends GameState> gameStateRequire) {
+        return printCommandFeedback(Collections.singletonList(
+                hasNotGameStateRequire(gameStateRequire)
+        ), gamePlayer);
+    }
+
+    private static boolean printCommandFeedback(List<String> exception, GamePlayer gamePlayer) {
+        String expected = "";
+        for (String text :
+                exception) {
+            if (text.isEmpty()) continue;
+            expected = text;
+            break;
+        }
+        if (expected.isEmpty()) return false;
+        gamePlayer.getPlayer().sendMessage(ConfigUHC.getExpected(expected));
+        return true;
     }
 }

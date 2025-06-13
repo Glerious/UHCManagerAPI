@@ -1,14 +1,27 @@
 package fr.glerious.uhcmanagerapi.limitation;
 
-public class StuffLimitation {
-    /*
 
+import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.ConfigUHC;
+import fr.glerious.uhcmanagerapi.Main;
+import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
-    private int diamondPieceLimit;
+import java.util.Arrays;
+import java.util.List;
 
-    private boolean diamondSwordLimit;
+public class StuffLimitation implements Listener {
 
-    private boolean bowLimit;
+    private int diamondPieceLimit = ConfigUHC.getConstants("diamond_piece_limit");
+
+    private boolean hasDiamondSword = true;
+
+    private boolean hasBow = true;
 
     private static final List<Material> DIAMOND_ARMOR = Arrays.asList(
             Material.DIAMOND_BOOTS,
@@ -28,24 +41,24 @@ public class StuffLimitation {
         return diamondPieceLimit;
     }
 
+    public boolean hasDiamondSword() {
+        return hasDiamondSword;
+    }
+
+    public boolean hasBow() {
+        return hasBow;
+    }
+
     public void setDiamondPieceLimit(int diamondPieceLimit) {
         this.diamondPieceLimit = diamondPieceLimit;
     }
 
-    public boolean hasDiamondSwordLimit() {
-        return diamondSwordLimit;
+    public void setHasDiamondSword(boolean hasDiamondSword) {
+        this.hasDiamondSword = hasDiamondSword;
     }
 
-    public void setDiamondSwordLimit(boolean diamondSwordLimit) {
-        this.diamondSwordLimit = diamondSwordLimit;
-    }
-
-    public boolean hasBowLimit() {
-        return bowLimit;
-    }
-
-    public void setBowLimit(boolean bowLimit) {
-        this.bowLimit = bowLimit;
+    public void setHasBow(boolean hasBow) {
+        this.hasBow = hasBow;
     }
 
     public static List<Material> getDiamondArmor() {
@@ -56,23 +69,28 @@ public class StuffLimitation {
         return IRON_ARMOR;
     }
 
-    public boolean isDiamondPiece(Material material) {
-        return DIAMOND_ARMOR.contains(material);
-    }
-
-    public boolean isIronPiece(Material material) {
-        return IRON_ARMOR.contains(material);
-    }
-
 
     @EventHandler
     public void onArmorUpdate(InventoryClickEvent event) {
-        if (Main.getGameState() instanceof Waiting) return;
+        if (!(Main.getGameState() instanceof InGame)) return;
         Player player = (Player) event.getWhoClicked();
-        ItemStack[] equipment = player.getEquipment().getArmorContents();
+        int diamondPiece = 0;
+        if (!DIAMOND_ARMOR.contains(event.getCurrentItem().getType())) return;
+        Bukkit.broadcastMessage("OUII");
+        for (Integer slot: Methods.rangedList(0, 45)) {
+            if (event.getInventory().getItem(slot) == null) continue;
+            Bukkit.broadcastMessage(event.getInventory().getItem(slot).getType().toString());
+            if (DIAMOND_ARMOR.contains(event.getInventory().getItem(slot).getType())) {
+                Bukkit.broadcastMessage("OUI2");
+                diamondPiece++;
+            }
+        }
+        if (diamondPiece > diamondPieceLimit) {
+            event.setCancelled(true);
+            player.sendMessage(ConfigUHC.getExpected("diamond_piece_limit"));
+        }
 
-
-     */
+    }
         /*
         Check type of player action :
         ShiftClick :
