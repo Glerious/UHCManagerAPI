@@ -11,7 +11,7 @@ public class Restarting extends GameState implements Listener {
 
     public Restarting() {
         super("Redémmarage");
-        runnables.add(new Runnables(Methods.seconds2ticks(10), Methods.seconds2ticks(1)) {
+        runnables.add(new Runnable(Methods.seconds2ticks(10), Methods.seconds2ticks(1)) {
             private final int duration = 5;
 
             private Integer i = 0;

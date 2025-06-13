@@ -2,13 +2,13 @@ package fr.glerious.uhcmanagerapi.timeline;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-public abstract class Runnables implements ConditionalAction {
+public abstract class Runnable implements ConditionalAction {
 
     private final long delay;
 
     private final long period;
 
-    public Runnables(long delayTick, long periodTick) {
+    public Runnable(long delayTick, long periodTick) {
         this.delay = delayTick;
         this.period = periodTick;
     }

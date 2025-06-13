@@ -20,15 +20,15 @@ public abstract class GameState implements Listener {
 
     protected final Timer timer = new Timer();
 
-    protected List<Events> events = new ArrayList<>();
+    protected List<Event> events = new ArrayList<>();
 
-    protected List<Runnables> runnables = new ArrayList<>();
+    protected List<Runnable> runnables = new ArrayList<>();
 
-    protected BukkitRunnable eventRunnable = new BukkitRunnable() {
+    protected final BukkitRunnable eventRunnable = new BukkitRunnable() {
         @Override
         public void run() {
-            for (Events events: getEvents())
-                if (Methods.seconds2ticks(timer.getTime()).equals(events.getTime())) events.action();
+            for (Event event: events)
+                if (Methods.seconds2ticks(timer.getTime()).equals(event.getTime())) event.action();
             timer.increment();
             Main.getGamePlayers().forEach(gamePlayer -> gamePlayer.getSideBar().updateTimer());
         }

@@ -43,7 +43,18 @@ public class InGame extends GameState implements Listener {
                 //TODO tester si ça desenregistre bien car semble local
             }
         });
-        events.add(new Events(Methods.seconds2ticks(PVPTime)) {
+        */
+        events.add(new Event(Methods.seconds2ticks(PVPTime)) {
+            @Override
+            public boolean condition() {
+                return false;
+            }
+
+            @Override
+            public void exit() {
+
+            }
+
             @Override
             public void action() {
                 for (GamePlayer gamePlayer : Main.getGamePlayers())

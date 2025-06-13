@@ -27,7 +27,7 @@ public class Teleporting extends GameState {
 
     public Teleporting() {
         super("Téléportation");
-        runnables.add(new Runnables(0, 5) {
+        runnables.add(new Runnable(0, 5) {
             @Override
             public boolean condition() {
                 return gamePlayers.isEmpty();

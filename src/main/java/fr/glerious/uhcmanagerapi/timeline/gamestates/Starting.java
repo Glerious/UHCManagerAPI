@@ -9,7 +9,7 @@ public class Starting extends GameState {
 
     public Starting(boolean onTest) {
         super("Démmarage");
-        runnables.add(new Runnables(0, onTest ? 0 : Methods.seconds2ticks(1)) {
+        runnables.add(new Runnable(0, onTest ? 0 : Methods.seconds2ticks(1)) {
             private final Integer duration = 10;
 
             @Override
