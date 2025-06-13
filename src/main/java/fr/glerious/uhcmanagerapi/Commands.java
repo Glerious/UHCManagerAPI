@@ -4,6 +4,7 @@ import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.javautils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
+import fr.glerious.uhcmanagerapi.timeline.Event;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Restarting;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
@@ -152,6 +153,12 @@ public class Commands implements CommandExecutor {
                         }
                         Main.getGameState().getTimer().setTime(Integer.parseInt(args[1]));
                         return true;
+                    }
+                    case "goto": {
+                        int argumentRequire = 1;
+                        if (args[1].equalsIgnoreCase("ingame")) {
+                            Main.setGameState(new InGame());
+                        }
                     }
                 }
             }
