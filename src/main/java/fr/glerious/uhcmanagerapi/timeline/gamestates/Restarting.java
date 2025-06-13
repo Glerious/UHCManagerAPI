@@ -3,8 +3,8 @@ package fr.glerious.uhcmanagerapi.timeline.gamestates;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
-import fr.glerious.uhcmanagerapi.timeline.Runnables;
-import fr.glerious.uhcmanagerapi.utils.Methods;
+import fr.glerious.uhcmanagerapi.timeline.Runnable;
+import fr.glerious.javautils.Methods;
 import org.bukkit.event.Listener;
 
 public class Restarting extends GameState implements Listener {

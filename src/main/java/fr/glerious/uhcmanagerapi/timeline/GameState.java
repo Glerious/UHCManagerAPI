@@ -1,8 +1,8 @@
 package fr.glerious.uhcmanagerapi.timeline;
 
+import fr.glerious.javautils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
-import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -65,9 +65,9 @@ public abstract class GameState implements Listener {
     }
 
     public void clock() {
-        for (Runnables runnable :
-                getRunnables())
+        for (Runnable runnable :
+                runnables)
             runnable.get().runTaskTimer(Main.getMain(), runnable.getDelay(), runnable.getPeriod());
-        eventRunnable.runTaskTimer(Main.getMain(), 0, 20);
+        eventRunnable.runTaskTimer(Main.getMain(), 0, Methods.seconds2ticks(1));
     }
 }

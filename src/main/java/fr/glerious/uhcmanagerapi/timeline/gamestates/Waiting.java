@@ -1,14 +1,14 @@
 package fr.glerious.uhcmanagerapi.timeline.gamestates;
 
 import com.google.common.collect.Lists;
+import fr.glerious.javautils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
-import fr.glerious.uhcmanagerapi.gameplayer.BetterItems;
+import fr.glerious.javautils.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.permission.Grade;
+import fr.glerious.javautils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
-import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class Waiting extends GameState {
             places.add(5);
         }
         if (Methods.isOneOf(size, 1, 3, 5, 7, 8, 9)) places.add(4);
-        return Methods.MergeList(places, itemStacks);
+        return Methods.list2Hash(places, itemStacks);
     }
 
     @Override

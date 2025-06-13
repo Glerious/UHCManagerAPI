@@ -1,19 +1,17 @@
 package fr.glerious.uhcmanagerapi.timeline.gamestates;
 
+import fr.glerious.uhcmanagerapi.ConfigUHC;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.timeline.Events;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
-import fr.glerious.uhcmanagerapi.timeline.Runnables;
-import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
-import fr.glerious.uhcmanagerapi.utils.Methods;
+import fr.glerious.uhcmanagerapi.timeline.Runnable;
+import fr.glerious.javautils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
