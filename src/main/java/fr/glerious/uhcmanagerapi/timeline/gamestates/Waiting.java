@@ -139,7 +139,9 @@ public class Waiting extends GameState {
 
         if (Methods.isOneOf(action, Action.LEFT_CLICK_BLOCK,
                 Action.RIGHT_CLICK_BLOCK, Action.LEFT_CLICK_AIR, Action.RIGHT_CLICK_AIR)) {
-            switch (player.getItemInHand().getItemMeta().getDisplayName()) {
+            ItemStack itemStack = player.getItemInHand();
+            if (itemStack.getType().equals(Material.AIR)) return;
+            switch (itemStack.getItemMeta().getDisplayName()) {
                 case "§6Team":
                     new MenuTeam().openInventory(player); break;
                 case "§6Menu Host":

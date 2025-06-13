@@ -39,8 +39,6 @@ public class SideBar {
         setScore("§4" + ConfigUHC.getInformation("sidebar_separator"), 15);
     }
 
-
-
     public GamePlayer getGamePlayer()
     {
         return gamePlayer;

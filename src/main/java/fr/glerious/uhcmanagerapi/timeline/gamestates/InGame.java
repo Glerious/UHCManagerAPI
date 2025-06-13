@@ -19,6 +19,7 @@ public class InGame extends GameState implements Listener {
         super("En Jeu");
         events = Main.getEvents();
         runnables = Main.getRunnables();
+        /*
         runnables.add(new Runnables(0, Methods.seconds2ticks(1.5)) {
             @Override
             public boolean condition() {
@@ -75,6 +76,8 @@ public class InGame extends GameState implements Listener {
         super.next();
         Main.setGameState(new Restarting());
     }
+
+
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
