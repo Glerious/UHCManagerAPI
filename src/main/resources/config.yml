@@ -14,12 +14,14 @@ expected:
   role_not_exist: "Rôle inexistant."
   no_access_inventory: "&7Vous n'avez pas accès à cet inventaire."
   game_state_require: "Vous n'êtes pas au bon moment de la partie. Revenez plus tard."
+  diamond_limit: "&cVous avez atteint la limite de diamants."
+  diamond_piece_limit: "&cVous avez atteint la limite de pièces en diamants."
 
 constructor:
   revive: "revive {player}"
   perm: "perm {player} admin|mod|host|player"
 
-command_feedback:
+commands_feedback:
   help:
     "&7&m------------------------------------------\n&r
      &8&lMenu :\n
@@ -36,19 +38,10 @@ information:
   host_menu_name: "&l&e - Menu de Moderation"
   sidebar_separator: "&7&m---------------"
   pvp_enable: "&cActivation du PVP !"
-  
-grade_prefix:
-  host: "&a&lHost"
-  player: "&7"
 
-limitation:
-  mining:
-    diamond_limit: "17"
-    number_replacement: "1"
-    cut_clean_replacement: "1"
-    diamond_limit_message: "&cVous avez atteint la limite de diamants."
-
-team:
-  spectator_name: "Spectators"
-  spectator_prefix: "&o"
+constants:
+  diamond_limit: "17"
+  number_replacement: "1"
+  cut_clean_replacement: "1"
   maximum_team_slot: "1"
+  diamond_piece_limit: "2"
