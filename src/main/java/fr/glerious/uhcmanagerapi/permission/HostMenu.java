@@ -1,5 +1,6 @@
 package fr.glerious.uhcmanagerapi.permission;
 
+import fr.glerious.uhcmanagerapi.ConfigUHC;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
@@ -19,7 +20,7 @@ import java.util.List;
 public class HostMenu extends Menu implements Listener {
 
     public HostMenu() {
-        super(ConfigAPI.getInformation("host_menu_name"));
+        super(ConfigUHC.getInformation("host_menu_name"));
         List<Integer> slots = Arrays.asList(0, 4, 22);
         List<BetterItems> betterItems = Arrays.asList(
                 new BetterItems(Material.BARRIER, "§c§lBack"),

@@ -7,7 +7,6 @@ import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Restarting;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
-import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -30,7 +29,7 @@ public class Commands implements CommandExecutor {
         switch (command.getName().toLowerCase()) {
             case "revive": {
                 int argumentRequire = 0;
-                if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire, args[0])) return true;
+                if (Main.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire, args[0])) return true;
                 InGame inGame = (InGame) Main.getGameState();
                 Player otherPlayer = Bukkit.getPlayer(args[0]);
                 if (otherPlayer == null) return false;
@@ -47,7 +46,7 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
                 int argumentRequire = 1;
-                if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire, args[0])) return true;
+                if (Main.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire, args[0])) return true;
                 Player otherPlayer = Bukkit.getPlayer(args[0]);
                 GamePlayer otherGamePlayer = Main.getGamePlayer(otherPlayer.getUniqueId());
                 if (otherGamePlayer == null) return false;
@@ -62,13 +61,13 @@ public class Commands implements CommandExecutor {
                 switch (args[0].toLowerCase()) {
                     case "help": {
                         if (args.length == 1) {
-                            player.sendMessage(ConfigAPI.getCommandFeedback("help"));
+                            player.sendMessage(ConfigUHC.getCommandsFeedback("help"));
                             return true;
                         }
                         int argumentRequire = 2;
-                        if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire)) return true;
+                        if (Main.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire)) return true;
                         if (args[1].equalsIgnoreCase("perm")) {
-                            player.sendMessage(ConfigAPI.getConstructor("perm"));
+                            player.sendMessage(ConfigUHC.getConstructor("perm"));
                             return true;
                         }
                         return false;
@@ -83,7 +82,7 @@ public class Commands implements CommandExecutor {
                             return true;
                         }
                         int argumentRequire = 3;
-                        if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire, args[1])) return true;
+                        if (Main.commandChecker(gamePlayer, Grade.HOST, args.length, argumentRequire, args[1])) return true;
                         Player otherPlayer = Bukkit.getPlayer(args[1]);
                         GamePlayer otherGamePlayer = Main.getGamePlayer(otherPlayer.getUniqueId());
                         if (otherGamePlayer == null) return false;
@@ -105,14 +104,14 @@ public class Commands implements CommandExecutor {
                     }
                     case "team": {
                         if (args.length == 1) {
-                            if (ConfigAPI.commandChecker(gamePlayer, Waiting.class)) return true;
+                            if (Main.commandChecker(gamePlayer, Waiting.class)) return true;
                             new MenuTeam().openInventory(player);
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("list")) {
                             Team team = gamePlayer.getTeam();
                             if (team == null) {
-                                player.sendMessage(ConfigAPI.getExpected("team_require"));
+                                player.sendMessage(ConfigUHC.getExpected("team_require"));
                                 return true;
                             }
                             player.sendMessage("§7Liste de l'équipe :§c " + team.getName());
@@ -122,9 +121,12 @@ public class Commands implements CommandExecutor {
                     }
                     case "start": {
                         int argumentRequire = 1;
-                        if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, Waiting.class, args.length, argumentRequire)) return true;
+                        if (Main.commandChecker(gamePlayer, Grade.HOST, Waiting.class, args.length, argumentRequire)) return true;
+                        for (Event events : Main.getStartEvents()) {
+                            if (!events.condition()) return true;
+                        }
                         if (!(Main.getTeamManager().getGameSize().equals(Main.getTeamManager().getActualSize()))) {
-                            player.sendMessage(ConfigAPI.getExpected("team_require"));
+                            player.sendMessage(ConfigUHC.getExpected("team_require"));
                             return true;
                         }
                         for (GamePlayer otherGamePlayer : Main.getGamePlayers())
@@ -134,18 +136,18 @@ public class Commands implements CommandExecutor {
                     }
                     case "stop": {
                         int argumentRequire = 1;
-                        if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire)) return true;
+                        if (Main.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire)) return true;
                         Main.setGameState(new Restarting());
                         return true;
                     }
                     case "time": {
                         int argumentRequire = 2;
-                        if (ConfigAPI.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire)) return true;
+                        if (Main.commandChecker(gamePlayer, Grade.HOST, InGame.class, args.length, argumentRequire)) return true;
                         try {
                             Integer.parseInt(args[1]);
                         }
                         catch (NumberFormatException exception) {
-                            player.sendMessage(ConfigAPI.getExpected("type_require"));
+                            player.sendMessage(ConfigUHC.getExpected("type_require"));
                             return true;
                         }
                         Main.getGameState().getTimer().setTime(Integer.parseInt(args[1]));

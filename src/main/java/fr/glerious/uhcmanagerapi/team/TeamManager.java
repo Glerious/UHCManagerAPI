@@ -19,11 +19,11 @@ public class TeamManager {
 
     private final Team spectatorTeam;
 
-    private Integer maximumTeamSlot = Integer.valueOf(ConfigAPI.getToConfig("team.maximum_team_slot"));
+    private Integer maximumTeamSlot = Integer.valueOf(ConfigUHC.getConstants("maximum_team_slot"));
 
-    private final String spectatorsName = ConfigAPI.getToConfig("team.spectator_name");
+    private final String spectatorsName = "Spectators";
 
-    private String spectatorsPrefix = ConfigAPI.getToConfig("team.spectator_prefix");
+    private final String spectatorsPrefix = "§o";
 
     public TeamManager() {
         scoreboard.registerNewTeam(spectatorsName);
@@ -95,7 +95,7 @@ public class TeamManager {
     public void joinTeam(GamePlayer gamePlayer, String teamName) {
         Team team = getTeamByName(teamName, false);
         if (team == null) {
-            gamePlayer.getPlayer().sendMessage(ConfigAPI.getExpected("team_not_found"));
+            gamePlayer.getPlayer().sendMessage(ConfigUHC.getExpected("team_not_found"));
             return;
         }
         team.addEntry(gamePlayer.getPseudo());
@@ -107,7 +107,7 @@ public class TeamManager {
     public void quitTeam(GamePlayer gamePlayer) {
         Team team = getTeamByName(gamePlayer.getTeam().getName(), false);
         if (team == null) {
-            ConfigAPI.getExpected("team_not_found");
+            ConfigUHC.getExpected("team_not_found");
             return;
         }
         team.removeEntry(gamePlayer.getPseudo());

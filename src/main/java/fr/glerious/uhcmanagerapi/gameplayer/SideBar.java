@@ -27,16 +27,16 @@ public class SideBar {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.objective = scoreboard.registerNewObjective(gamePlayer.getPseudo(), "dummy");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        changeNames("§7" + ConfigAPI.getToConfig("name"), "§7» §a§o§lBy @" + ConfigAPI.getToConfig("creator"));
-
-        setScore("§1" + ConfigAPI.getInformation("sidebar_separator"), 1);
+        changeNames("§7" + ConfigUHC.getName(Main.getMain()));
+        setScore("§7» §a§o§lBy @" + ConfigUHC.getCreator(Main.getMain()), 0);
+        setScore("§1" + ConfigUHC.getInformation("sidebar_separator"), 1);
         updateTeam();
         updatePlayerCounter();
-        setScore("§2" + ConfigAPI.getInformation("sidebar_separator"), 4);
-        setScore("§3" + ConfigAPI.getInformation("sidebar_separator"), 12);
+        setScore("§2" + ConfigUHC.getInformation("sidebar_separator"), 4);
+        setScore("§3" + ConfigUHC.getInformation("sidebar_separator"), 12);
         updateTimer();
         updateEtat();
-        setScore("§4" + ConfigAPI.getInformation("sidebar_separator"), 15);
+        setScore("§4" + ConfigUHC.getInformation("sidebar_separator"), 15);
     }
 
 

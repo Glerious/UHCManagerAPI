@@ -35,7 +35,7 @@ public class Teleporting extends GameState {
 
             @Override
             public void exit() {
-                Bukkit.broadcastMessage(ConfigAPI.getToConfig("information.end_teleportation"));
+                Bukkit.broadcastMessage(ConfigUHC.getInformation("end_teleportation"));
                 new BukkitRunnable() {
                     @Override
                     public void run() {
