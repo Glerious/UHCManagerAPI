@@ -74,6 +74,9 @@ public class Waiting extends GameState {
         GamePlayer gamePlayer = Main.getGamePlayer(player.getUniqueId());
         assert gamePlayer != null;
         if (betterItems.isEmpty()) return;
+        player.getInventory().clear();
+        for (PotionEffect potionEffect : player.getActivePotionEffects())
+            player.removePotionEffect(potionEffect.getType());
         if (betterItems.size() > 9) {
             betterItems.clear();
             betterItems.add(new BetterItems(Material.BARRIER,
