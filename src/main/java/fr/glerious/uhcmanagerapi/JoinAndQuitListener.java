@@ -1,7 +1,7 @@
 package fr.glerious.uhcmanagerapi;
 
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.javautils.Grade;
+import fr.glerious.uhcmanagerapi.utils.Grade;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
 import org.bukkit.Bukkit;

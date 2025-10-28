@@ -15,10 +15,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
             <id>spigot-repo</id>
@@ -38,11 +34,6 @@
             <groupId>com.github.azbh111</groupId>
             <artifactId>craftbukkit-1.8.8</artifactId>
             <version>R</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.Glerious</groupId>
-            <artifactId>JavaUtils</artifactId>
-            <version>-5444f78208-1</version>
         </dependency>
     </dependencies>
 </project>

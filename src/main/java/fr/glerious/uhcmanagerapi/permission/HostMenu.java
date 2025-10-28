@@ -1,11 +1,11 @@
 package fr.glerious.uhcmanagerapi.permission;
 
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.ConfigUHC;
 import fr.glerious.uhcmanagerapi.Main;
-import fr.glerious.javautils.BetterItems;
+import fr.glerious.uhcmanagerapi.utils.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.javautils.Menu;
+import fr.glerious.uhcmanagerapi.utils.Menu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +26,6 @@ public class HostMenu extends Menu implements Listener {
                 new BetterItems(Material.SKULL_ITEM, "§1PlayerHead"),
                 new BetterItems(Material.SLIME_BALL, "§a§lStart")
         );
-
         modifyBasePage(3, Methods.list2Hash(slots, betterItems));
     }
 

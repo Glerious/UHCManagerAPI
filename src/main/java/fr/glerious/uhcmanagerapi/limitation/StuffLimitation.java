@@ -1,7 +1,7 @@
 package fr.glerious.uhcmanagerapi.limitation;
 
 
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.ConfigUHC;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.InGame;
@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,12 +77,11 @@ public class StuffLimitation implements Listener {
         Player player = (Player) event.getWhoClicked();
         int diamondPiece = 0;
         if (!DIAMOND_ARMOR.contains(event.getCurrentItem().getType())) return;
-        Bukkit.broadcastMessage("OUII");
-        for (Integer slot: Methods.rangedList(0, 45)) {
-            if (event.getInventory().getItem(slot) == null) continue;
-            Bukkit.broadcastMessage(event.getInventory().getItem(slot).getType().toString());
-            if (DIAMOND_ARMOR.contains(event.getInventory().getItem(slot).getType())) {
-                Bukkit.broadcastMessage("OUI2");
+        for (Integer slot: Methods.rangedList(36, 39)) {
+            ItemStack item = player.getInventory().getItem(slot);
+            if (item == null) continue;
+            Bukkit.broadcastMessage(item.toString());
+            if (DIAMOND_ARMOR.contains(item.getType())) {
                 diamondPiece++;
             }
         }

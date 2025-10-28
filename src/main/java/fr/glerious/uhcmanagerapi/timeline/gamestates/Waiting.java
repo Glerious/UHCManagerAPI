@@ -1,11 +1,11 @@
 package fr.glerious.uhcmanagerapi.timeline.gamestates;
 
 import com.google.common.collect.Lists;
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
-import fr.glerious.javautils.BetterItems;
+import fr.glerious.uhcmanagerapi.utils.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.javautils.Grade;
+import fr.glerious.uhcmanagerapi.utils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.timeline.GameState;

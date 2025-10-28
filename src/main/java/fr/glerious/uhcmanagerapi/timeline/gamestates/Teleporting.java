@@ -5,7 +5,7 @@ import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnable;
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -48,6 +48,7 @@ public class Teleporting extends GameState {
                 gamePlayers.remove(gamePlayer);
                 if (Main.getTeamManager().getActualGamePlayers().contains(gamePlayer)) {
                     teleportPlayer(gamePlayer);
+                    Bukkit.broadcastMessage("§7[§6UHC§7] - Teleportation de §6" + gamePlayer.getPlayer().getName() + "§7.");
                     return;
                 }
                 gamePlayer.getPlayer().setGameMode(GameMode.SPECTATOR);

@@ -1,6 +1,6 @@
 package fr.glerious.uhcmanagerapi.timeline;
 
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.gamestates.Waiting;
 import org.bukkit.event.HandlerList;

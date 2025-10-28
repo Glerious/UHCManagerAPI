@@ -1,6 +1,6 @@
 package fr.glerious.uhcmanagerapi;
 
-import fr.glerious.javautils.ConfigAPI;
+import fr.glerious.uhcmanagerapi.utils.ConfigAPI;
 
 public class ConfigUHC extends ConfigAPI {
 

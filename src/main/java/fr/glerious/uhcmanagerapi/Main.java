@@ -3,7 +3,7 @@ package fr.glerious.uhcmanagerapi;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
 import fr.glerious.uhcmanagerapi.limitation.StuffLimitation;
 import fr.glerious.uhcmanagerapi.limitation.UHC;
-import fr.glerious.javautils.Grade;
+import fr.glerious.uhcmanagerapi.utils.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.team.TeamManager;
@@ -100,7 +100,7 @@ public class Main extends JavaPlugin {
             addListener(new MenuTeam());
             addListener(new UHC());
             addListener(new HostMenu());
-            addListener(new StuffLimitation());
+            //addListener(new StuffLimitation());
             addListener(gameState);
         });
     }

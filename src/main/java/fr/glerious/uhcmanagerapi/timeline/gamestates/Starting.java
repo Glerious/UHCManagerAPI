@@ -3,7 +3,7 @@ package fr.glerious.uhcmanagerapi.timeline.gamestates;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
 import fr.glerious.uhcmanagerapi.timeline.Runnable;
-import fr.glerious.javautils.Methods;
+import fr.glerious.uhcmanagerapi.utils.Methods;
 
 public class Starting extends GameState {
 
