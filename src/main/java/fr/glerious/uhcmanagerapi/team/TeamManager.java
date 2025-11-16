@@ -22,11 +22,9 @@ public class TeamManager {
 
     private final Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-    private final List<Team> teams = new ArrayList<>();
+    private final List<UHCTeam> UHCTeams = new ArrayList<>();
 
     private final Team spectatorTeam;
-
-    private Integer maximumTeamSlot = ConfigUHC.getConstants("maximum_team_slot");
 
     private final String spectatorsName = "Spectators";
 
@@ -37,49 +35,32 @@ public class TeamManager {
         this.spectatorTeam = scoreboard.getTeam(spectatorsName);
         this.spectatorTeam.setPrefix(spectatorsPrefix);
         this.spectatorTeam.setCanSeeFriendlyInvisibles(true);
-        addTeam("Team1", "§6TEAM1 ", false);
-        //addTeam("Team2", "§7TEAM2 ", false);
-        //addTeam("Team3", "§1", false);
+        addTeam("Team1", "§6", false);
+        addTeam("Team2", "§7", false);
     }
 
-    public Scoreboard getScoreboard() {
-        return scoreboard;
+    public List<UHCTeam> getUHCteams() {
+        return UHCTeams;
     }
 
-    public List<Team> getTeams() {
-        return teams;
-    }
-
-    public Integer getMaximumTeamSlot() {
-        return maximumTeamSlot;
-    }
-
-    public void setMaximumTeamSlot(Integer maximumTeamSlot) {
-        this.maximumTeamSlot = maximumTeamSlot;
-    }
-
-    public String getSpectatorsName() {
-        return spectatorsName;
+    public String getSpectatorsName(){
+            return spectatorsName;
     }
 
     public Integer getGameSize() {
-        return maximumTeamSlot*teams.size();
+        return ConfigUHC.getConstants("size_team")*UHCTeams.size();
     }
 
-    public Integer getActualSize() {
+    public Integer getActualNumberInTeam() {
         int returned = 0;
-        for (Team team : teams) returned += team.getSize();
+        for (UHCTeam UHCteam : UHCTeams) returned += UHCteam.getActualSize();
         return returned;
     }
 
-    public List<GamePlayer> getActualGamePlayers() {
+    public List<GamePlayer> getActualGamePlayerInTeam() {
         List<GamePlayer> returned = new ArrayList<>();
-        for (Team team : teams) {
-            for (String entry : team.getEntries()) {
-                Player player = Bukkit.getPlayer(entry);
-                returned.add(Main.getGamePlayer(player.getUniqueId()));
-            }
-        }
+        for (UHCTeam UHCteam : UHCTeams)
+            returned.addAll(UHCteam.getGamePlayers());
         return returned;
     }
 
@@ -87,11 +68,17 @@ public class TeamManager {
         if (prefixed)
             if ((spectatorsPrefix + spectatorsName).equals(teamName)) return spectatorTeam;
         if (spectatorsName.equals(teamName)) return spectatorTeam;
-        for (Team team : getTeams()) {
+        for (UHCTeam UHCteam : UHCTeams) {
             if (prefixed)
-                if ((team.getPrefix() + team.getName()).equals(teamName)) return team;
-            if (team.getName().equals(teamName)) return team;
+                if ((UHCteam.getPrefix() + UHCteam.getName()).equals(teamName)) return UHCteam.getTeam();
+            if (UHCteam.getName().equals(teamName)) return UHCteam.getTeam();
         }
+        return null;
+    }
+
+    public UHCTeam getUHCTeamByName(String teamName, boolean prefixed) {
+        for (UHCTeam UHCteam : UHCTeams)
+            if (getTeamByName(teamName, prefixed).getName().equals(UHCteam.getName())) return UHCteam;
         return null;
     }
 
@@ -101,9 +88,13 @@ public class TeamManager {
 
     public void joinTeam(GamePlayer gamePlayer, String teamName) {
         Team team = getTeamByName(teamName, false);
-        if (team == null) {
-            gamePlayer.getPlayer().sendMessage(ConfigUHC.getExpected("team_not_found"));
-            return;
+        if (team != spectatorTeam) {
+            UHCTeam UHCteam = getUHCTeamByName(teamName, false);
+            if (UHCteam.getActualSize() == UHCteam.getMaximumSize()) {
+                gamePlayer.getPlayer().sendMessage(ConfigUHC.getExpected("team_full"));
+                joinTeam(gamePlayer, spectatorsName);
+                return;
+            }
         }
         team.addEntry(gamePlayer.getPseudo());
         gamePlayer.setTeam(team);
@@ -131,21 +122,24 @@ public class TeamManager {
         Team team = scoreboard.getTeam(teamName);
         team.setPrefix(prefix);
         team.setCanSeeFriendlyInvisibles(ownInvisibleVisibility);
-        teams.add(team);
+        UHCTeam UHCteam = new UHCTeam(team);
+        UHCTeams.add(UHCteam);
     }
 
     public void removeTeam(String teamName) {
-        teams.remove(getTeamByName(teamName, false));
+        teamName = getTeamByName(teamName, false).getName();
+        for (UHCTeam UHCteam : UHCTeams)
+            if (teamName.equals(UHCteam.getName())) UHCTeams.remove(UHCteam);
         scoreboard.getTeam(teamName).unregister();
     }
 
     public void changeDisplayName(Player player, String newName) {
         player.setDisplayName(newName);
         player.setPlayerListName(newName);
-        changeName(player, newName);
+        //changeName(player, newName);
     }
 
-    public void changeName(Player p, String newName){
+    public void changeName(Player p, String newName) {
         for(Player pl : Bukkit.getOnlinePlayers()){
             if(pl == p) continue;
             //REMOVES THE PLAYER

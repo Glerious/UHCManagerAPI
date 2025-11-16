@@ -10,6 +10,9 @@ expected:
   game_require: "Aucune partie reconnue."
   role_require: "Joueur sans rôle."
   team_require: "Joueur sans équipe."
+  item_require: "Item inexistant."
+  world_require: "Monde Arena Inexistant. Veuillez le créer"
+  team_full: "Equipe complète, choisisez une autre."
   player_require: "Joueur introuvable / déconnecté."
   role_not_exist: "Rôle inexistant."
   no_access_inventory: "&7Vous n'avez pas accès à cet inventaire."
@@ -42,6 +45,5 @@ information:
 constants:
   diamond_limit: "17"
   number_replacement: "1"
-  cut_clean_replacement: "1"
-  maximum_team_slot: "1"
+  size_team: "1"
   diamond_piece_limit: "2"

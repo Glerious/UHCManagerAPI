@@ -5,14 +5,16 @@ import fr.glerious.uhcmanagerapi.utils.Methods;
 import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.utils.BetterItems;
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.utils.Grade;
+import fr.glerious.uhcmanagerapi.permission.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.timeline.GameState;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -148,5 +150,10 @@ public class Waiting extends GameState {
                     new HostMenu().openInventory(player); break;
             }
         }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player) event.setCancelled(true);
     }
 }

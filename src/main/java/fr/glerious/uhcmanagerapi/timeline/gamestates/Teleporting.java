@@ -46,7 +46,7 @@ public class Teleporting extends GameState {
             public void action() {
                 GamePlayer gamePlayer = gamePlayers.get(new Random().nextInt(gamePlayers.size()));
                 gamePlayers.remove(gamePlayer);
-                if (Main.getTeamManager().getActualGamePlayers().contains(gamePlayer)) {
+                if (Main.getTeamManager().getActualGamePlayerInTeam().contains(gamePlayer)) {
                     teleportPlayer(gamePlayer);
                     Bukkit.broadcastMessage("§7[§6UHC§7] - Teleportation de §6" + gamePlayer.getPlayer().getName() + "§7.");
                     return;
@@ -82,7 +82,7 @@ public class Teleporting extends GameState {
         double angle = Math.PI / Math.pow(2, rayNumber) * gamePlayers.size() - Math.pow(2, rayNumber + 1) + 4;
         double[] coordinates = getCoordinates(raySize, angle);
         gamePlayer.getPlayer().teleport(new Location(
-                gamePlayer.getPlayer().getWorld(),
+                Bukkit.getWorld("arena"),
                 coordinates[0],
                 coordinates[1],
                 coordinates[2]

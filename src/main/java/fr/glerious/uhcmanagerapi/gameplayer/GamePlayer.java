@@ -4,7 +4,7 @@ import fr.glerious.uhcmanagerapi.Main;
 import fr.glerious.uhcmanagerapi.limitation.EnchantmentLimitation;
 import fr.glerious.uhcmanagerapi.limitation.MiningLimitation;
 import fr.glerious.uhcmanagerapi.limitation.StuffLimitation;
-import fr.glerious.uhcmanagerapi.utils.Grade;
+import fr.glerious.uhcmanagerapi.permission.Grade;
 import fr.glerious.uhcmanagerapi.utils.Methods;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
@@ -52,43 +52,35 @@ public class GamePlayer {
         return uuid;
     }
 
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return Bukkit.getPlayer(uuid);
     }
 
-    public Grade getGrade()
-    {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(Grade grade)
-    {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 
-    public SideBar getSideBar()
-    {
+    public SideBar getSideBar() {
         return sideBar;
     }
 
-    public boolean isDead()
-    {
+    public boolean isDead() {
         return isDead;
     }
 
-    public void setDead(boolean dead)
-    {
+    public void setDead(boolean dead) {
         isDead = dead;
     }
 
-    public int getKill()
-    {
+    public int getKill() {
         return kill;
     }
 
-    public void setKill(int kill)
-    {
+    public void setKill(int kill) {
         this.kill = kill;
     }
 
@@ -201,13 +193,13 @@ public class GamePlayer {
 
     public void revive(Location location) {
         getPlayer().spigot().respawn();
-        //getPlayer().teleport(location);
+        getPlayer().teleport(location);
         getPlayer().setGameMode(GameMode.SURVIVAL);
-        Bukkit.broadcastMessage("§7Revive du joueur :§6§l" + getPlayer().getName());
         //TODO réutiliser la méthode de téléportation random (créer cette méthode dans Teleport.java
     }
 
     public void spectate() {
+        Main.getTeamManager().quitTeam(this);
         Main.getTeamManager().joinTeam(this, Main.getTeamManager().getSpectatorsName());
         getPlayer().setGameMode(GameMode.SPECTATOR);
     }

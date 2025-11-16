@@ -1,6 +1,6 @@
 package fr.glerious.uhcmanagerapi.utils;
 
-import fr.glerious.uhcmanagerapi.utils.Grade;
+import fr.glerious.uhcmanagerapi.permission.Grade;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -11,11 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BetterItems {
+
     private final ItemStack itemStack;
 
     private final ItemMeta itemMeta;
 
-    private fr.glerious.uhcmanagerapi.utils.Grade grade = fr.glerious.uhcmanagerapi.utils.Grade.PLAYER;
+    private Grade grade = Grade.PLAYER;
 
     public BetterItems(Material material) {
         this.itemStack = new ItemStack(material);
@@ -27,7 +28,7 @@ public class BetterItems {
         setName(name);
     }
 
-    public BetterItems(Material material, String name, fr.glerious.uhcmanagerapi.utils.Grade grade) {
+    public BetterItems(Material material, String name, Grade grade) {
         this(material);
         setGrade(grade);
         setName(name);
@@ -156,7 +157,7 @@ public class BetterItems {
         setName("");
     }
 
-    private void setGrade(fr.glerious.uhcmanagerapi.utils.Grade grade) {
+    private void setGrade(Grade grade) {
         this.grade = grade;
     }
 
@@ -197,16 +198,16 @@ public class BetterItems {
         return itemStack;
     }
 
-    public fr.glerious.uhcmanagerapi.utils.Grade getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public boolean hasGrade(fr.glerious.uhcmanagerapi.utils.Grade grade) {
+    public boolean hasGrade(Grade grade) {
         return this.grade.equals(grade);
     }
 
-    public ItemStack usable(fr.glerious.uhcmanagerapi.utils.Grade grade) {
-        if (this.grade.equals(fr.glerious.uhcmanagerapi.utils.Grade.HOST) && grade.equals(Grade.PLAYER)) return null;
+    public ItemStack usable(Grade grade) {
+        if (this.grade.equals(Grade.HOST) && grade.equals(Grade.PLAYER)) return null;
         return getItemStack();
     }
 }

@@ -1,7 +1,7 @@
 package fr.glerious.uhcmanagerapi;
 
 import fr.glerious.uhcmanagerapi.gameplayer.GamePlayer;
-import fr.glerious.uhcmanagerapi.utils.Grade;
+import fr.glerious.uhcmanagerapi.permission.Grade;
 import fr.glerious.uhcmanagerapi.permission.HostMenu;
 import fr.glerious.uhcmanagerapi.team.MenuTeam;
 import fr.glerious.uhcmanagerapi.timeline.Event;
@@ -126,8 +126,12 @@ public class Commands implements CommandExecutor {
                         for (Event events : Main.getStartEvents()) {
                             if (!events.condition()) return true;
                         }
-                        if (!(Main.getTeamManager().getGameSize().equals(Main.getTeamManager().getActualSize()))) {
+                        if (!(Main.getTeamManager().getGameSize().equals(Main.getTeamManager().getActualNumberInTeam()))) {
                             player.sendMessage(ConfigUHC.getExpected("team_require"));
+                            return true;
+                        }
+                        if(Bukkit.getWorld("arena") == null) {
+                            player.sendMessage(ConfigUHC.getExpected("world_require"));
                             return true;
                         }
                         for (GamePlayer otherGamePlayer : Main.getGamePlayers())
